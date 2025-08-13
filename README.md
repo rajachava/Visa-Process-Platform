@@ -88,6 +88,7 @@ Workflows are under `.github/workflows/`:
 
 - `backend-deploy.yml`: Installs backend deps, optionally runs tests, SCPs the backend to the EC2 server, and restarts with PM2 as `visa-backend`.
 - `frontend-deploy.yml`: Builds React app and uploads `frontend/build` to web directory on EC2.
+- `ci.yml`: Runs backend tests on PRs and feature branches.
 
 Required repository Secrets:
 
@@ -108,12 +109,17 @@ EC2 prerequisites:
    - `sudo chown -R $USER:$USER /var/www/visa-app /var/www/visa-web`
 3. Place production `.env` in `/var/www/visa-app/backend/.env`
 4. Ensure security group allows HTTP (80/443) and backend port (5001) or use a reverse proxy (Nginx) to expose the backend.
+5. (Optional) Nginx config provided at `infra/nginx/visa.conf`. Place it in `/etc/nginx/sites-available/visa.conf`, symlink to `sites-enabled`, and reload Nginx.
 
 Local dev:
 
 ```
 npm run dev
 ```
+
+## SysML Docs
+
+See `docs/` for Draw.io sources. Export PNGs and include screenshots in your report.
 
 ---
 
