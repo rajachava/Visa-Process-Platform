@@ -1,0 +1,58 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-deploy.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install deps
+        working-directory: backend
+        run: npm ci
+
+      - name: Run tests (optional)
+        if: ${{ false }}
+        working-directory: backend
+        run: npm test
+
+      - name: Build (skip if not needed)
+        run: echo "No build step for backend"
+
+      - name: Copy files to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USER }}
+          key: ${{ secrets.AWS_SSH_KEY }}
+          source: "backend/*,backend/.env,backend/.env.production?"
+          target: ${{ secrets.AWS_BACKEND_PATH }}
+          overwrite: true
+
+      - name: Restart backend service
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USER }}
+          key: ${{ secrets.AWS_SSH_KEY }}
+          script: |
+            cd ${{ secrets.AWS_BACKEND_PATH }}/backend
+            npm ci --omit=dev
+            pm2 restart visa-backend || pm2 start server.js --name visa-backend
+

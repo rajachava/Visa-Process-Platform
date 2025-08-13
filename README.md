@@ -54,12 +54,25 @@ We will send you an email to choose a Real-World project. If you face any diffic
 * Ensure only authenticated users can access and perform CRUD operations. (Already developed in your project)
 * Use JWT (JSON Web Tokens) for user authentication (Use the task manager one from .env file).
 
+### Implementation Notes
+
+- JWT is used on all protected endpoints. Backend checks the `Authorization: Bearer <token>` header with middleware in `backend/middleware/authMiddleware.js`.
+- The new visa-processing features are protected: `applications`, nested `documents` and `payments`, and status updates.
+- Configure `backend/.env` with `MONGO_URI`, `JWT_SECRET`, and `PORT` (default 5001). Frontend base URL is set in `frontend/src/axiosConfig.jsx`.
+
 **6. GitHub Version Control & Branching Strategy**
 
 * Use GitHub for version control and maintain:
 * main branch (stable production-ready code)
 * Feature branches for each new feature
 * Follow proper commit messages and pull request (PR) for code reviews.
+
+### Suggested workflow
+
+- Default branch: `main` (stable).
+- Create branches per feature: `feature/<short-name>` (e.g., `feature/applications-crud`, `feature/documents-verify`).
+- Commit using Conventional Commits (e.g., `feat(app): add status update endpoint`, `fix(auth): handle missing token`).
+- Open a PR to merge feature branch into `main`. Request review and ensure CI passes.
 
 **7. CI/CD Pipeline Setup**
 
@@ -68,6 +81,39 @@ We will send you an email to choose a Real-World project. If you face any diffic
 * Deploy the backend to AWS. (Use the QUT provided EC2 instance)
 * Deploy the frontend to AWS.
 * Document your CI/CD workflow in the README.
+
+### GitHub Actions CI/CD
+
+Workflows are under `.github/workflows/`:
+
+- `backend-deploy.yml`: Installs backend deps, optionally runs tests, SCPs the backend to the EC2 server, and restarts with PM2 as `visa-backend`.
+- `frontend-deploy.yml`: Builds React app and uploads `frontend/build` to web directory on EC2.
+
+Required repository Secrets:
+
+- `AWS_HOST` – EC2 public IP or DNS
+- `AWS_USER` – SSH user (e.g., `ubuntu` or `ec2-user`)
+- `AWS_SSH_KEY` – contents of your private key (PEM)
+- `AWS_BACKEND_PATH` – target path for backend, e.g., `/var/www/visa-app`
+- `AWS_FRONTEND_PATH` – target path for frontend build, e.g., `/var/www/visa-web/html`
+
+EC2 prerequisites:
+
+1. Install Node.js 18+ and PM2
+   - `curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -`
+   - `sudo apt-get install -y nodejs`
+   - `sudo npm i -g pm2`
+2. Create directories and set permissions
+   - `sudo mkdir -p /var/www/visa-app/backend /var/www/visa-web/html`
+   - `sudo chown -R $USER:$USER /var/www/visa-app /var/www/visa-web`
+3. Place production `.env` in `/var/www/visa-app/backend/.env`
+4. Ensure security group allows HTTP (80/443) and backend port (5001) or use a reverse proxy (Nginx) to expose the backend.
+
+Local dev:
+
+```
+npm run dev
+```
 
 ---
 
