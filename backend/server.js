@@ -12,7 +12,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', require('./routes/authRoutes'));
-//app.use('/api/tasks', require('./routes/taskRoutes'));
+app.use('/api/applications', require('./routes/applicationRoutes'));
+app.use('/api/applications/:applicationId/documents', (req, res, next) => {
+    next();
+}, require('./routes/documentRoutes'));
+app.use('/api/applications/:applicationId/payments', (req, res, next) => {
+    next();
+}, require('./routes/paymentRoutes'));
 
 // Export the app object for testing
 if (require.main === module) {
