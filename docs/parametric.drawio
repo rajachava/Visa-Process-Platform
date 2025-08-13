@@ -1,0 +1,34 @@
+<mxfile host="app.diagrams.net" modified="2025-08-14T00:00:00.000Z" agent="Student" version="20.8.0">
+  <diagram id="parametric" name="Parametric Diagram">
+    <mxGraphModel dx="1024" dy="768" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="blk_constraints" value="«constraintBlock»\nPaymentRules\namount > 0\ncurrency ∈ {USD, AUD, EUR}" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#5f6368;fillColor=#f1f3f4" vertex="1" parent="1">
+          <mxGeometry x="120" y="80" width="260" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="blk_state" value="«constraintBlock»\nApplicationState\nallowed transitions:\n draft→submitted→under_review→approved/rejected" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#5f6368;fillColor=#f1f3f4" vertex="1" parent="1">
+          <mxGeometry x="440" y="70" width="360" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="para_app" value="«part» application:Application" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#1a73e8;fillColor=#e8f0fe" vertex="1" parent="1">
+          <mxGeometry x="140" y="240" width="240" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="para_payment" value="«part» payment:Payment" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#1a73e8;fillColor=#e8f0fe" vertex="1" parent="1">
+          <mxGeometry x="460" y="240" width="240" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="bind1" value="bind" style="endArrow=oval;dashed=1;strokeColor=#1a73e8;html=1" edge="1" parent="1" source="blk_constraints" target="para_payment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="bind2" value="bind" style="endArrow=oval;dashed=1;strokeColor=#1a73e8;html=1" edge="1" parent="1" source="blk_state" target="para_app">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+
+

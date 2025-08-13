@@ -1,0 +1,48 @@
+<mxfile host="app.diagrams.net" modified="2025-08-14T00:00:00.000Z" agent="Student" version="20.8.0">
+  <diagram id="requirements" name="Requirements">
+    <mxGraphModel dx="1024" dy="768" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="req_root" value="«requirement»\nVisa Processing Platform" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;strokeColor=#1a73e8;fillColor=#e8f0fe;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="420" y="60" width="300" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="req_auth" value="«requirement»\nUser Authentication" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#5f6368;fillColor=#f1f3f4" vertex="1" parent="1">
+          <mxGeometry x="90" y="220" width="240" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="req_app" value="«requirement»\nApplication Submission" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#5f6368;fillColor=#f1f3f4" vertex="1" parent="1">
+          <mxGeometry x="380" y="220" width="240" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="req_doc" value="«requirement»\nDocument Verification" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#5f6368;fillColor=#f1f3f4" vertex="1" parent="1">
+          <mxGeometry x="670" y="220" width="240" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="req_pay" value="«requirement»\nPayment Processing" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#5f6368;fillColor=#f1f3f4" vertex="1" parent="1">
+          <mxGeometry x="250" y="340" width="240" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="req_status" value="«requirement»\nStatus Tracking" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#5f6368;fillColor=#f1f3f4" vertex="1" parent="1">
+          <mxGeometry x="560" y="340" width="240" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge1" value="includes" style="endArrow=block;endFill=1;html=1;strokeColor=#1a73e8;" edge="1" parent="1" source="req_root" target="req_auth">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge2" value="includes" style="endArrow=block;endFill=1;html=1;strokeColor=#1a73e8;" edge="1" parent="1" source="req_root" target="req_app">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge3" value="includes" style="endArrow=block;endFill=1;html=1;strokeColor=#1a73e8;" edge="1" parent="1" source="req_root" target="req_doc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge4" value="includes" style="endArrow=block;endFill=1;html=1;strokeColor=#1a73e8;" edge="1" parent="1" source="req_root" target="req_pay">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge5" value="includes" style="endArrow=block;endFill=1;html=1;strokeColor=#1a73e8;" edge="1" parent="1" source="req_root" target="req_status">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+
+
