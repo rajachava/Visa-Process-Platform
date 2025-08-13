@@ -1,146 +1,35 @@
+### What was asked (from the assignment)
 
-**Assessment 1 (Total Marks **20**)**
+- Use JIRA for project management (Epics, User Stories, Subtasks, Sprints) and provide the JIRA Board URL.
+- Create SysML diagrams: Requirements Diagram, Block Definition Diagram (BDD), and Parametric Diagram.
+- Backend (Node.js + Express + MongoDB): API-first design; implement CRUD for the chosen real-world features.
+- Frontend (React): Build forms for create/update/delete and display data using lists/cards.
+- Authentication & Authorization: Use JWT to ensure only authenticated users can perform CRUD.
+- GitHub workflow: maintain a stable `main`, use feature branches, meaningful commit messages, and open PRs for review.
+- CI/CD: Use GitHub Actions to (optionally) run tests and deploy backend and frontend to AWS EC2; document the workflow in the README.
 
-Assignment: **Software requirements analysis and design (**Full-Stack CRUD Application Development with DevOps Practices**)**
+### What I implemented after cloning the starter repo
 
+- Backend (Node/Express/MongoDB)
+  - Added visa domain models: `Application`, `Document`, `Payment`.
+  - Implemented controllers and routes for full CRUD and status updates:
+    - `applications` CRUD + `PATCH /api/applications/:id/status`.
+    - Nested `documents` and `payments` under each application.
+  - Reused the existing JWT `protect` middleware to secure all new endpoints.
+  - Added a simple health check `GET /api/health` and a sample test `backend/test/app.test.js`.
 
----
+- Frontend (React)
+  - Added pages: `Applications`, `Documents`, `Payments`, and `ApplicationStatus`.
+  - Built reusable components: `ApplicationForm`, `ApplicationList`.
+  - Updated routing and navbar; axios calls include the JWT from context.
 
-**Objective**
+- Version Control (GitHub)
+  - Worked on feature branch `feature/visa-backend-frontend` and opened a PR into `main` with conventional commit messages.
 
-You have been provided with a starter project that includes user authentication using Node.js, React.js, and MongoDB. Your task is to extend this application by implementing CRUD (Create, Read, Update, Delete) operations of different featuresfor a real-world application of your choice, while following industry best practices such as: 
-
-* **Project Management with JIRA**
-* **Requirement Diagram**, **Block Definition Diagram (**BDD), Parametric Diagram using**SysML**
-* **Version Control using GitHub**
-* **CI/CD Integration for Automated Deployment**
-
----
-
-**GitHub link of the starter project: **[https://github.com/rajuiit/sdlapps](https://github.com/rajuiit/sdlapps)
-
----
-
-**Requirement**
-
-1. **Choose a Real-World Application**
-
-We will send you an email to choose a Real-World project. If you face any difficulties in choosing your project, please contact your tutor.
-
-2. **Project Design with SysML and Project Management with JIRA**
-
-* Draw a requirements diagram, Block Definition Diagram (BDD), and Parametric Diagram based on your project (Connect all functional features).
-* Create a JIRA project and define:
-  * Epic
-  * User Stories (features required in your app)
-  * Child issues or Subtasks (breaking down development work)
-  * Sprint Implementation (organizing work into milestones)
-* Provide your JIRA board URL in the project README.
-
-**3. Backend Development (Node.js + Express + MongoDB)**
-
-* Set up and configure the MongoDB database connection.
-* Implement various backend functions for handling application data.Ensure that all functions are compatible with an Application Programming Interface (API) structure(Follow existing patterns used in the Task Manager App where applicable).
-* Implement CRUD operations forcreating, reading, updating, and deleting records for each functionality.
-
-4. **Frontend Development (React.js)**
-
-* Create a user-friendly interface to interact with your API endpoint (Follow task manager app).
-* Implement different forms for adding, updating, and deleting records.
-* Display data using tables, cards, or lists (Follow how we showed data in task manager app, try to implement better visualization for the frontend.)
-
-**5. Authentication & Authorization** (Prerequisite Task)
-
-* Ensure only authenticated users can access and perform CRUD operations. (Already developed in your project)
-* Use JWT (JSON Web Tokens) for user authentication (Use the task manager one from .env file).
-
-### Implementation Notes
-
-- JWT is used on all protected endpoints. Backend checks the `Authorization: Bearer <token>` header with middleware in `backend/middleware/authMiddleware.js`.
-- The new visa-processing features are protected: `applications`, nested `documents` and `payments`, and status updates.
-- Configure `backend/.env` with `MONGO_URI`, `JWT_SECRET`, and `PORT` (default 5001). Frontend base URL is set in `frontend/src/axiosConfig.jsx`.
-
-**6. GitHub Version Control & Branching Strategy**
-
-* Use GitHub for version control and maintain:
-* main branch (stable production-ready code)
-* Feature branches for each new feature
-* Follow proper commit messages and pull request (PR) for code reviews.
-
-### Suggested workflow
-
-- Default branch: `main` (stable).
-- Create branches per feature: `feature/<short-name>` (e.g., `feature/applications-crud`, `feature/documents-verify`).
-- Commit using Conventional Commits (e.g., `feat(app): add status update endpoint`, `fix(auth): handle missing token`).
-- Open a PR to merge feature branch into `main`. Request review and ensure CI passes.
-
-**7. CI/CD Pipeline Setup**
-
-* Implement a CI/CD pipeline using GitHub Actions to:
-* Automatically run tests on every commit/pull request (Optional).
-* Deploy the backend to AWS. (Use the QUT provided EC2 instance)
-* Deploy the frontend to AWS.
-* Document your CI/CD workflow in the README.
-
-### GitHub Actions CI/CD
-
-Workflows are under `.github/workflows/`:
-
-- `backend-deploy.yml`: Installs backend deps, optionally runs tests, SCPs the backend to the EC2 server, and restarts with PM2 as `visa-backend`.
-- `frontend-deploy.yml`: Builds React app and uploads `frontend/build` to web directory on EC2.
-- `ci.yml`: Runs backend tests on PRs and feature branches.
-
-Required repository Secrets:
-
-- `AWS_HOST` – EC2 public IP or DNS
-- `AWS_USER` – SSH user (e.g., `ubuntu` or `ec2-user`)
-- `AWS_SSH_KEY` – contents of your private key (PEM)
-- `AWS_BACKEND_PATH` – target path for backend, e.g., `/var/www/visa-app`
-- `AWS_FRONTEND_PATH` – target path for frontend build, e.g., `/var/www/visa-web/html`
-
-EC2 prerequisites:
-
-1. Install Node.js 18+ and PM2
-   - `curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -`
-   - `sudo apt-get install -y nodejs`
-   - `sudo npm i -g pm2`
-2. Create directories and set permissions
-   - `sudo mkdir -p /var/www/visa-app/backend /var/www/visa-web/html`
-   - `sudo chown -R $USER:$USER /var/www/visa-app /var/www/visa-web`
-3. Place production `.env` in `/var/www/visa-app/backend/.env`
-4. Ensure security group allows HTTP (80/443) and backend port (5001) or use a reverse proxy (Nginx) to expose the backend.
-5. (Optional) Nginx config provided at `infra/nginx/visa.conf`. Place it in `/etc/nginx/sites-available/visa.conf`, symlink to `sites-enabled`, and reload Nginx.
-
-Local dev:
-
-```
-npm run dev
-```
-
-## SysML Docs
-
-See `docs/` for Draw.io sources. Export PNGs and include screenshots in your report.
-
----
-
-**Submission Requirements**
-
-**A report **contains** the following (Provide screenshots as evidence for each implemented task. **The screenshot should **contain** your username** from JIRA, GITHUB, and AWS**):
-
-* **JIRA Project **Management**(Provide screenshots in the **report o**f at least two epics**, **including user story, sub**t**a**sks**. **Please **don’t** provide **the **U**ser Authentication** epic**.**Provide your JIRA Board URL in the report and README file as well.**Through the JIRA Board, we will systematically review the completeness of the project features, organised under Epics, User Stories, and Sub-tasks.**
-* Requirement diagram, Block Definition Diagram (BDD), Parametric Diagram (Using project features).
-* **GitHub Repository (backend/ and frontend/)** link. We will **review** your code implementation, which you followed from the task description. We will also **review** your commits, main branch, feature branches, and pull requests. **(**Please note that the authorisation** (Log In, Registration)** is the prerequisite for backend development.**)**
-* CI/CD pipeline details step by step screenshot.
-* README.md with:
-* Project setup instructions.
-* Public URL of your project.
-* Provide a project-specific username and password if we need to access your dashboard.
-
----
-
-**Assessment Criteria:**
-
-* Clarity and completeness of Jira board and SysML models.
-* Adherence to Git best practices and practical contributions.
-* Successful implementation, deploymentand CI/CD pipeline.
-* Problem-solving skills and the ability to go beyond basic requirements.
+- CI/CD and DevOps
+  - Added GitHub Actions workflows:
+    - `backend-deploy.yml` (deploys backend via SSH/PM2).
+    - `frontend-deploy.yml` (builds and uploads React build to EC2).
+    - `ci.yml` (runs backend tests on PRs/feature branches).
+  - Included `infra/nginx/visa.conf` for serving the frontend and proxying `/api` to the backend.
+  - Created `docs/` directory to store SysML diagram sources (to be finalized and exported to PNG for the report).
