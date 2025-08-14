@@ -37,18 +37,17 @@ jobs:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
-          source: "frontend/build/**"
-          target: ${{ secrets.AWS_FRONTEND_PATH }}
-          strip_components: 1
+          source: "frontend/build/*"
+          target: "/var/www/visa-web/html"
           overwrite: true
 
-      - name: Post-deploy (optional)
-        if: ${{ false }}
+      - name: Post-deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
-            echo "Frontend deployed"
+            echo "Frontend deployed successfully"
+            ls -la /var/www/visa-web/html/
 

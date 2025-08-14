@@ -41,8 +41,8 @@ jobs:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
-          source: "backend/*,backend/.env,backend/.env.production?"
-          target: ${{ secrets.AWS_BACKEND_PATH }}
+          source: "backend/*"
+          target: "/var/www/visa-web/backend"
           overwrite: true
 
       - name: Restart backend service
@@ -52,8 +52,7 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
-            mkdir -p ${{ secrets.AWS_BACKEND_PATH }}/backend
-            cd ${{ secrets.AWS_BACKEND_PATH }}/backend
+            cd /var/www/visa-web/backend
             if [ -f package.json ]; then
               npm ci --omit=dev
             fi
