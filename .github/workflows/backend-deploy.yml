@@ -57,4 +57,5 @@ jobs:
               npm ci --omit=dev
             fi
             pm2 restart visa-backend || pm2 start server.js --name visa-backend
+            echo "Backend deployed successfully"
 

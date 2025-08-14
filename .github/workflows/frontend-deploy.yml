@@ -39,15 +39,17 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           source: "frontend/build/*"
           target: "/var/www/visa-web/html"
+          strip_components: 2
           overwrite: true
 
-      - name: Post-deploy
+      - name: Set permissions
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
+            sudo chown -R ec2-user:ec2-user /var/www/visa-web/html
+            sudo chmod -R 755 /var/www/visa-web/html
             echo "Frontend deployed successfully"
-            ls -la /var/www/visa-web/html/
 
