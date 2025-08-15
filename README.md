@@ -4,10 +4,10 @@ A comprehensive full-stack web application for managing visa applications with c
 
 ## 🌟 Live Application
 
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:5000/api
-- **GitHub Repository**: https://github.com/rajachava/visa-processing-platform
-- **Production**: Testing Enhanced Deployment Debugging - CI/CD pipeline active
+- **Frontend**: http://3.27.157.165
+- **Backend API**: http://3.27.157.165/api
+- **GitHub Repository**: https://github.com/rajachava/Visa-Process-Platform
+
 
 ## 🚀 CI/CD Pipeline
 
@@ -382,4 +382,5 @@ For questions or support, please contact:
 ---
 
 **Built with ❤️ by Raja Chava**
+
 
