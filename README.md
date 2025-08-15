@@ -28,7 +28,7 @@ This project includes a complete CI/CD pipeline using GitHub Actions for automat
    - **Frontend**: Deployed to S3 with CloudFront CDN
 
 # Frontend Configuration
-REACT_APP_API_URL=https://your-backend-domain.com/api
+REACT_APP_API_URL=https://3.27.157.165/api
 ``` 
 
 ## 📋 Features
@@ -382,5 +382,6 @@ For questions or support, please contact:
 ---
 
 **Built with ❤️ by Raja Chava**
+
 
 
