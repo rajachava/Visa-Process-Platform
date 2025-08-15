@@ -7,6 +7,7 @@ A comprehensive full-stack web application for managing visa applications with c
 - **Frontend**: http://3.27.157.165
 - **Backend API**: http://3.27.157.165/api
 - **GitHub Repository**: https://github.com/rajachava/Visa-Process-Platform
+- **Jira**: https://rajachava27.atlassian.net/jira/software/projects/VS/summary?atlOrigin=eyJpIjoiMmY1MWIwNmU5ZGExNDFkYmE3Yjk5ZjBkYTY0NGY1NmQiLCJwIjoiaiJ9
 
 
 ## 🚀 CI/CD Pipeline
@@ -382,6 +383,7 @@ For questions or support, please contact:
 ---
 
 **Built with ❤️ by Raja Chava**
+
 
 
 
