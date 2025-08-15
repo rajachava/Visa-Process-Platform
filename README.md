@@ -27,26 +27,6 @@ This project includes a complete CI/CD pipeline using GitHub Actions for automat
    - **Backend**: Deployed to EC2 instance with PM2
    - **Frontend**: Deployed to S3 with CloudFront CDN
 
-### Required GitHub Secrets
-Configure these secrets in your GitHub repository settings:
-
-```env
-# Database
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-
-# AWS Backend Deployment
-AWS_HOST=your_ec2_public_ip
-AWS_USERNAME=ec2-user
-AWS_SSH_KEY=your_private_ssh_key
-
-# AWS Frontend Deployment
-AWS_ACCESS_KEY_ID=your_aws_access_key
-AWS_SECRET_ACCESS_KEY=your_aws_secret_key
-AWS_REGION=us-east-1
-S3_BUCKET=your_s3_bucket_name
-CLOUDFRONT_DISTRIBUTION_ID=your_cloudfront_distribution_id
-
 # Frontend Configuration
 REACT_APP_API_URL=https://your-backend-domain.com/api
 ``` 
@@ -402,3 +382,4 @@ For questions or support, please contact:
 ---
 
 **Built with ❤️ by Raja Chava**
+
